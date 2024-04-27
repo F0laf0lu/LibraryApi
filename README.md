@@ -31,3 +31,32 @@ Explore the API endpoints and test requests using the Postman documentation avai
 To run the API locally, follow these steps:
 
 1. Clone the repository:
+
+    `
+    git clone [<repository_url>](https://github.com/F0laf0lu/LibraryApi.git)
+    `
+2. Install dependencies:
+
+    `
+    pip install -r requirements.txt
+    `
+
+3. Run migrations:
+
+    `
+    python manage.py migrate
+    `
+
+
+4. Start the development server:
+    `
+    python manage.py runserver
+    `
+
+## Running Tests
+
+To run the tests for the API, execute the following command:
+
+    `
+    python manage.py test
+    `
