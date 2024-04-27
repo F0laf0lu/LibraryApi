@@ -24,7 +24,7 @@ For the database schema, refer to the [Entity Relationship Diagram (ERD)](erd_di
 
 ## Postman Documentation
 
-Explore the API endpoints and test requests using the Postman documentation available [here](postman_documentation_link).
+Explore the API endpoints and test requests using the Postman documentation available [here](https://documenter.getpostman.com/view/29680874/2sA3BuUoJo).
 
 ## Running Locally
 

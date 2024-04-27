@@ -66,3 +66,16 @@ class BookTestCase(TestCase):
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Book.objects.count(), 2)
+
+    def test_book_update(self):
+        url = reverse('book-detail', kwargs={"pk":self.book.id})
+        data =  {'title': 'Updated Book'}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Book.objects.get(id=self.book.id).title, 'Updated Book')
+
+    def test_book_delete(self):
+        url = reverse('book-detail', kwargs={"pk":self.book.id})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(Book.objects.filter(id=self.book.id).first())
