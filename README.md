@@ -53,10 +53,6 @@ To run the API locally, follow these steps:
     - python manage.py runserver
     
 
-## Running Tests
+5. To run the tests for the API, execute the following command:
 
-To run the tests for the API, execute the following command:
-
-    
     - python manage.py test
-    
