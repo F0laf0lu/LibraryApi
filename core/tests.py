@@ -132,3 +132,10 @@ class BookTestCase(TestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, 204)
         self.assertIsNone(Book.objects.filter(id=self.book.id).first())
+    
+    def test_book_catgory_set_to_null_ondeletete(self):
+        url = reverse("category-detail", kwargs={"pk":self.category.id})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+        self.book.refresh_from_db() 
+        self.assertIsNone(self.book.category)
