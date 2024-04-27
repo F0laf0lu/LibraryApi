@@ -28,7 +28,18 @@ class CategoryTestCase(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Category.objects.count(), 3)
 
-    # Add tests for update and delete functionalities
+    def test_category_update(self):
+        url = reverse("category-detail", kwargs={"pk":self.category1.id})
+        data = {'name': 'Fantasy'}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Category.objects.get(id=self.category1.id).name, 'Fantasy')
+
+    def test_category_delete(self):
+        url = reverse("category-detail", kwargs={"pk":self.category1.id})
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, 204)
+        self.assertIsNone(Category.objects.filter(id=self.category1.id).first())
 
 class BookTestCase(TestCase):
     def setUp(self):
