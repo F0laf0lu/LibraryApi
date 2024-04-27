@@ -1,6 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APIClient
 from .models import Category, Book
+from django.urls import reverse
 
 class CategoryTestCase(TestCase):
     def setUp(self):
@@ -9,17 +10,21 @@ class CategoryTestCase(TestCase):
         self.category2 = Category.objects.create(name='Science')
 
     def test_category_list(self):
-        response = self.client.get('/categories/')
+        url = reverse("category-list-create")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
 
     def test_category_detail(self):
-        response = self.client.get(f'/categories/{self.category1.id}/')
+        url = reverse("category-detail", kwargs={"pk":self.category1.id})
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['name'], 'Fiction')
 
     def test_category_create(self):
-        response = self.client.post('/categories/', {'name': 'Horror'})
+        url = reverse("category-list-create")
+        data = {'name': 'Horror'}
+        response = self.client.post(url, data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Category.objects.count(), 3)
 
@@ -38,22 +43,26 @@ class BookTestCase(TestCase):
         )
 
     def test_book_list(self):
-        response = self.client.get('/books/')
+        url = reverse('book-list-create')
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
 
     def test_book_detail(self):
-        response = self.client.get(f'/books/{self.book.id}/')
+        url = reverse('book-detail', kwargs={"pk":self.book.id})
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['title'], 'Example Book')
 
     def test_book_create(self):
-        response = self.client.post('/books/', {
+        url = reverse('book-list-create')
+        data = {
             'title': 'New Book',
             'author': 'Jane Smith',
             'no_of_pages': 150,
             'description': 'A new book description',
             'category': self.category.id
-        })
+        }
+        response = self.client.post(url, data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Book.objects.count(), 2)
