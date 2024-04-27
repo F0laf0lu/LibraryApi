@@ -1,0 +1,24 @@
+# Byte-compiled / optimized Python files
+__pycache__/
+*.py[cod]
+
+# Django related
+*.log
+*.pot
+*.pyc
+*.sqlite3
+media
+staticfiles
+
+# Ignore migrations, as these can vary between developers and environments
+**/migrations/*.py
+**/migrations/*.pyc
+
+# Ignore the local settings file
+local_settings.py
+
+# Ignore environment-specific settings
+.env
+
+# Ignore any virtual environments
+venv/
