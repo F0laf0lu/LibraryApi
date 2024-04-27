@@ -7,8 +7,12 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from .models import Category, Book
-from .serializers import CategorySerializer, BookSerializer
-
+from .serializers import (
+    CategoryReadSerializer,
+    CategoryWriteSerializer,
+    BookReadSerializer,
+    BookWriteSerializer
+)
 
 class ApiRoot(APIView):
     """
@@ -26,19 +30,22 @@ class ApiRoot(APIView):
 
 
 class CategoryListCreateAPIView(generics.ListCreateAPIView):
-    """
-    API view for listing and creating categories.
-    """
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return CategoryReadSerializer
+        else:
+            return CategoryWriteSerializer
 
 class CategoryRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    API view for retrieving, updating, and deleting a category.
-    """
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return CategoryReadSerializer
+        else:
+            return CategoryWriteSerializer
 
 
 class BookListCreateAPIView(generics.ListCreateAPIView):
@@ -46,12 +53,27 @@ class BookListCreateAPIView(generics.ListCreateAPIView):
     API view for listing and creating books.
     """
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
 
+    def get_serializer_class(self):
+        """
+        Return the appropriate serializer class based on the request method.
+        """
+        if self.request.method == 'GET':
+            return BookReadSerializer
+        else:
+            return BookWriteSerializer
 
 class BookRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     API view for retrieving, updating, and deleting a book.
     """
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
+
+    def get_serializer_class(self):
+        """
+        Return the appropriate serializer class based on the request method.
+        """
+        if self.request.method == 'GET':
+            return BookReadSerializer
+        else:
+            return BookWriteSerializer

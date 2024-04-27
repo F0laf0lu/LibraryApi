@@ -5,26 +5,24 @@ Serializers for Library API.
 from rest_framework import serializers
 from .models import Category, Book
 
-class CategorySerializer(serializers.ModelSerializer):
-    """
-    Serializer for Category model.
-    """
 
+class CategoryReadSerializer(serializers.ModelSerializer):
     class Meta:
-        """
-        Meta class for CategorySerializer.
-        """
         model = Category
-        fields = '__all__'
+        fields = ['id','name','created_at', 'updated_at']
 
-class BookSerializer(serializers.ModelSerializer):
-    """
-    Serializer for Book model.
-    """
-
+class CategoryWriteSerializer(serializers.ModelSerializer):
     class Meta:
-        """
-        Meta class for BookSerializer.
-        """
+        model = Category
+        exclude = ['created_at', 'updated_at']
+
+class BookReadSerializer(serializers.ModelSerializer):
+    class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['id', 'title', 'author', 'no_of_pages', 'description', 'category', 'created_at','updated_at']
+
+class BookWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        exclude = ['created_at','updated_at']
+
